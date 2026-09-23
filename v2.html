@@ -1,0 +1,132 @@
+.water-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 8px 0;
+}
+
+/* ============ WATER JUG ============ */
+.jug-wrap {
+  position: relative;
+  width: 130px;
+  height: 200px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 8px 24px rgba(59, 130, 246, 0.35));
+}
+.jug-svg {
+  width: 100%; height: 100%;
+  overflow: visible;
+}
+.jug-outline {
+  fill: rgba(59, 130, 246, 0.06);
+  stroke: url(#jugStroke);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.jug-highlight {
+  fill: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+.jug-water-clip {
+  clip-path: url(#jugClip);
+}
+.jug-water {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 0%;
+  background: linear-gradient(180deg,
+    rgba(96, 165, 250, 0.95) 0%,
+    rgba(59, 130, 246, 0.98) 40%,
+    rgba(30, 64, 175, 1) 100%);
+  transition: height 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 0 0 24px 24px;
+}
+.jug-water::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: -10%; right: -10%; height: 16px;
+  background: radial-gradient(ellipse at center,
+    rgba(191, 219, 254, 1) 0%,
+    rgba(96, 165, 250, 0.6) 40%,
+    transparent 75%);
+  border-radius: 50%;
+  animation: waterRipple 3s ease-in-out infinite;
+}
+.jug-water::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent);
+  animation: waterShimmer 2.5s ease-in-out infinite;
+}
+@keyframes waterRipple {
+  0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.9; }
+  50% { transform: translateY(-4px) scaleX(1.08); opacity: 1; }
+}
+@keyframes waterShimmer {
+  0%, 100% { opacity: 0.4; transform: translateX(-20%); }
+  50% { opacity: 1; transform: translateX(20%); }
+}
+
+.jug-bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 24px;
+}
+.bubble {
+  position: absolute;
+  bottom: 0;
+  width: 6px; height: 6px;
+  background: rgba(191, 219, 254, 0.7);
+  border-radius: 50%;
+  animation: bubbleRise 4s linear infinite;
+}
+.bubble:nth-child(1) { left: 25%; animation-delay: 0s; }
+.bubble:nth-child(2) { left: 45%; animation-delay: 1.2s; width: 4px; height: 4px; }
+.bubble:nth-child(3) { left: 65%; animation-delay: 2.4s; width: 5px; height: 5px; }
+.bubble:nth-child(4) { left: 35%; animation-delay: 3s; }
+@keyframes bubbleRise {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(-160px) scale(0.4); opacity: 0; }
+}
+
+.water-info { flex: 1; }
+.water-count {
+  font-family: 'Fraunces', serif;
+  font-size: 2.6rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--sapphire-300), var(--sapphire-500));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.water-label {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.water-glass-track {
+  display: flex; gap: 4px; margin-top: 16px; flex-wrap: wrap;
+}
+.water-glass {
+  width: 18px; height: 22px;
+  border-radius: 3px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  transition: all 0.3s;
+}
+.water-glass.full {
+  background: linear-gradient(180deg, var(--sapphire-400), var(--sapphire-600));
+  border-color: var(--sapphire-400);
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
+}
